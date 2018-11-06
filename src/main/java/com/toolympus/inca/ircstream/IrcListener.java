@@ -2,31 +2,55 @@ package com.toolympus.inca.ircstream;
 
 import java.util.List;
 import java.util.Arrays;
+import javax.annotation.PostConstruct;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.types.GenericMessageEvent;
 
+import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.integration.support.MessageBuilder;
+
+import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+
+@Component
 public class IrcListener extends ListenerAdapter {
+
+        @Autowired
+        private IrcStreamProperties properties;
+
         @Override
         public void onGenericMessage(GenericMessageEvent event) {
-                System.out.println("====");
-                System.out.println(event.getMessage());
-                System.out.println("====");
-                System.out.println("");
+                Message msg = new Message();
+                msg.id = "124";
+                msg.date = "2018-10-16";
+                msg.category = "";
+                msg.content = event.getMessage();
+
+                System.out.println("got:: " + event.getMessage());
+
+                source.output().send(MessageBuilder.withPayload(msg).build());
         }
 
+        private Source source;
         private String _name;
         private String _server;
         private List<String> _channels;
 
-        public IrcListener(String name, String server, String channels) {
-                _name = name;
-                _server = server;
-                _channels = Arrays.asList(channels.split(","));
-        }
+        @PostConstruct
+        public void setUp() throws Exception {
+                _name = "ircsource";
+                _server = "irc.rizon.net";
+                _channels = Arrays.asList("#aturoktest".split(","));
 
+                System.out.println("set up");
+        }
+        
         public void start() throws Exception {
+                System.out.println("starting up");
                 Configuration configuration = new Configuration.Builder()
                                 .setName(_name)
                                 .addServer(_server)
@@ -36,5 +60,10 @@ public class IrcListener extends ListenerAdapter {
 
                 PircBotX bot = new PircBotX(configuration);
                 bot.startBot();
+        }
+
+        @Autowired
+        public IrcListener(Source source) {
+                this.source = source;
         }
 }
