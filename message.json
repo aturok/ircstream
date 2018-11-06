@@ -1,0 +1,99 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string",
+            "description": "Message ID"
+        },
+        "date": {
+            "type": "string",
+            "description": "Message timestamp, ISO date in UTC"
+        },
+        "source": {
+            "type": "string",
+            "description": "Predefined string, the same for all messages",
+            "default": "Telegram"
+        },
+        "category": {
+            "type": "string",
+            "description": "Channel title; we should be able to pass it as parameter from configs"
+        },
+        "channel_id": {
+            "type": "string",
+            "description": "Channel id"
+        },
+        "author": {
+            "type": "string",
+            "description": "Message sender id"
+        },
+        "reciever": {
+            "type": "string",
+            "description": "Message reciever id"
+        },
+        "content": {
+            "type": "string",
+            "description": "Message text"
+        },
+        "related_documents": {
+            "type": "array",
+            "description": "messageMediaDocument",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "content": {
+                        "type": "string",
+                        "description": "Document text"
+                    },
+                    "date": {
+                        "type": "string",
+                        "description": "Document _creation_ date, if available; ISO date in UTC"
+                    },
+                    "size": {
+                        "type": "integer",
+                        "description": "File size in bytes"
+                    },
+                    "file_name": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "media": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "content": {
+                        "type": "string",
+                        "description": "messageMediaPhoto binary content or messageMediaVideo.thumb"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Media caption"
+                    },
+                    "date": {
+                        "type": "string",
+                        "description": "Media _creation_ date, if available; ISO date in UTC"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Media type: [image|video]"
+                    },
+                    "size": {
+                        "type": "integer",
+                        "description": "File size in bytes"
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+        "id",
+        "date",
+        "source",
+        "category",
+        "author",
+        "language",
+        "content"
+    ]
+}
