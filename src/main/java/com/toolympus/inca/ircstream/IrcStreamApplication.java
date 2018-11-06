@@ -43,7 +43,14 @@ public class IrcStreamApplication {
         };
     }
 
-    public static void main1(String[] args) {
-        SpringApplication.run(IrcStreamApplication.class, args);
+    public static void main(String[] args) {
+        try {
+            //SpringApplication.run(IrcStreamApplication.class, args);
+            IrcListener listener = new IrcListener("ircsource", "irc.rizon.net", "#aturoktest");
+            listener.start();
+        }
+        catch(Exception exc) {
+            System.err.println(exc);
+        }
     }
 }
