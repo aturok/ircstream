@@ -52,10 +52,10 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.telegram</groupId>
-            <artifactId>telegramapi</artifactId>
-            <version>66.2</version>
-    </dependency>
+            <groupId>org.pircbotx</groupId>
+            <artifactId>pircbotx</artifactId>
+            <version>2.1</version>
+        </dependency>
 	</dependencies>
 
 	<properties>
