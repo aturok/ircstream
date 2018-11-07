@@ -17,13 +17,20 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class IrcListener extends ListenerAdapter {
-    @Autowired
-    private IrcStreamProperties properties;
-    
     private final String sourceLabel = "IRC";
     private final SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss.SSS");
-    
+
+    @Autowired
+    private IrcStreamProperties properties;
+
+    private Source source;
     private PircBotX bot;
+    
+    @Autowired
+    public IrcListener(Source source) {
+        this.source = source;
+        dateFormatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+    }
     
     @Override
     public void onMessage(MessageEvent event) {
@@ -39,9 +46,7 @@ public class IrcListener extends ListenerAdapter {
         
         source.output().send(MessageBuilder.withPayload(msg).build());
     }
-    
-    private Source source;
-    
+        
     /**
     * Configures and starts the IRC bot in a blocking manner.
     * @throws Exception
@@ -71,11 +76,5 @@ public class IrcListener extends ListenerAdapter {
     */
     public void stop() {
         bot.close();
-    }
-    
-    @Autowired
-    public IrcListener(Source source) {
-        this.source = source;
-        dateFormatter.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
 }
