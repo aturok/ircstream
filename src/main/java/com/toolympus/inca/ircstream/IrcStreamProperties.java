@@ -1,9 +1,8 @@
 package com.toolympus.inca.ircstream;
 
-import org.hibernate.validator.constraints.NotBlank;
-
-import org.springframework.beans.factory.annotation.Value;
+import javax.validation.constraints.NotBlank;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * Configuration properties for the telegram Source module.
@@ -11,6 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author aturok
  */
 @ConfigurationProperties("ircstream")
+@Validated
 public class IrcStreamProperties {
 
     /**
