@@ -26,65 +26,9 @@
             "type": "string",
             "description": "Message sender id"
         },
-        "reciever": {
-            "type": "string",
-            "description": "Message reciever id"
-        },
         "content": {
             "type": "string",
             "description": "Message text"
-        },
-        "related_documents": {
-            "type": "array",
-            "description": "messageMediaDocument",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "content": {
-                        "type": "string",
-                        "description": "Document text"
-                    },
-                    "date": {
-                        "type": "string",
-                        "description": "Document _creation_ date, if available; ISO date in UTC"
-                    },
-                    "size": {
-                        "type": "integer",
-                        "description": "File size in bytes"
-                    },
-                    "file_name": {
-                        "type": "string"
-                    }
-                }
-            }
-        },
-        "media": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "content": {
-                        "type": "string",
-                        "description": "messageMediaPhoto binary content or messageMediaVideo.thumb"
-                    },
-                    "description": {
-                        "type": "string",
-                        "description": "Media caption"
-                    },
-                    "date": {
-                        "type": "string",
-                        "description": "Media _creation_ date, if available; ISO date in UTC"
-                    },
-                    "type": {
-                        "type": "string",
-                        "description": "Media type: [image|video]"
-                    },
-                    "size": {
-                        "type": "integer",
-                        "description": "File size in bytes"
-                    }
-                }
-            }
         }
     },
     "required": [

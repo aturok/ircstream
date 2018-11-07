@@ -1,12 +1,15 @@
 package com.toolympus.inca.ircstream;
 
+import java.util.Date;
 import java.util.List;
+
 import java.util.Arrays;
-import javax.annotation.PostConstruct;
+import java.util.TimeZone;
+import java.text.SimpleDateFormat;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
-import org.pircbotx.hooks.types.GenericMessageEvent;
+import org.pircbotx.hooks.events.MessageEvent;
 
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.integration.support.MessageBuilder;
@@ -20,15 +23,19 @@ public class IrcListener extends ListenerAdapter {
         @Autowired
         private IrcStreamProperties properties;
 
-        @Override
-        public void onGenericMessage(GenericMessageEvent event) {
-                Message msg = new Message();
-                msg.id = "124";
-                msg.date = "2018-10-16";
-                msg.category = "";
-                msg.content = event.getMessage();
+        private final String sourceLabel = "IRC";
+        private final SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss.SSS"); 
 
-                System.out.println("got:: " + event.getMessage());
+        @Override
+        public void onMessage(MessageEvent event) {
+                Message msg = new Message();
+                msg.id = Long.toString(event.getId());
+                msg.date = dateFormatter.format(new Date(event.getTimestamp()));
+                msg.source = sourceLabel;
+                msg.category = event.getChannel().getName();
+                msg.channel_id = event.getChannel().getChannelId().toString();
+                msg.author = event.getUser().getLogin();
+                msg.content = event.getMessage();
 
                 source.output().send(MessageBuilder.withPayload(msg).build());
         }
@@ -57,5 +64,6 @@ public class IrcListener extends ListenerAdapter {
         @Autowired
         public IrcListener(Source source) {
                 this.source = source;
+                dateFormatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         }
 }
