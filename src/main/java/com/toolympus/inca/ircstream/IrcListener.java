@@ -36,11 +36,17 @@ public class IrcListener extends ListenerAdapter {
         private Source source;
 
         public void start() throws Exception {
-                System.out.println("starting up");
+                List<String> channels = Arrays.asList(properties.getChannels().split(","));
+                channels.replaceAll((s) -> { return s.trim(); });
+                channels.removeIf((s) -> s.isEmpty());
+
+                if(channels.isEmpty())
+                        throw new IllegalArgumentException("IRC channels to listen not provided");
+
                 Configuration configuration = new Configuration.Builder()
                                 .setName(properties.getIrcNickname())
                                 .addServer(properties.getIrcServer())
-                                .addAutoJoinChannels(Arrays.asList(properties.getChannels()))
+                                .addAutoJoinChannels(channels)
                                 .addListener(this)
                                 .buildConfiguration();
 

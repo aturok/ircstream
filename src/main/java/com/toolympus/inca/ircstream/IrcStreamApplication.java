@@ -14,6 +14,12 @@ import com.toolympus.inca.ircstream.IrcStreamProperties;
 public class IrcStreamApplication {
     public static void main(String[] args) throws Exception {
         ConfigurableApplicationContext context = SpringApplication.run(IrcStreamApplication.class, args);
-        context.getBean(IrcListener.class).start();
+
+        try {
+            context.getBean(IrcListener.class).start();
+        } catch(IllegalArgumentException exc) {
+            exc.printStackTrace();
+            context.close();
+        }
     }
 }
