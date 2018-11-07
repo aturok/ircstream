@@ -10,7 +10,6 @@ import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
-
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.integration.support.MessageBuilder;
 
@@ -24,7 +23,9 @@ public class IrcListener extends ListenerAdapter {
         private IrcStreamProperties properties;
 
         private final String sourceLabel = "IRC";
-        private final SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss.SSS"); 
+        private final SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss.SSS");
+
+        private PircBotX bot;
 
         @Override
         public void onMessage(MessageEvent event) {
@@ -55,10 +56,15 @@ public class IrcListener extends ListenerAdapter {
                                 .addServer(properties.getIrcServer())
                                 .addAutoJoinChannels(channels)
                                 .addListener(this)
+                                .setAutoReconnect(true)
                                 .buildConfiguration();
 
-                PircBotX bot = new PircBotX(configuration);
+                bot = new PircBotX(configuration);
                 bot.startBot();
+        }
+
+        public void stop() {
+                bot.close();
         }
 
         @Autowired

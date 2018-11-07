@@ -12,13 +12,17 @@ import com.toolympus.inca.ircstream.IrcStreamProperties;
 @EnableConfigurationProperties(IrcStreamProperties.class)
 @SpringBootApplication
 public class IrcStreamApplication {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(IrcStreamApplication.class, args);
 
         try {
             context.getBean(IrcListener.class).start();
-        } catch(IllegalArgumentException exc) {
+        }
+        catch(Exception exc) {
             exc.printStackTrace();
+        }
+        finally {
+            context.getBean(IrcListener.class).stop();
             context.close();
         }
     }
