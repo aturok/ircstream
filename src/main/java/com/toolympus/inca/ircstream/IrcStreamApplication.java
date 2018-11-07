@@ -1,12 +1,11 @@
 package com.toolympus.inca.ircstream;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Source;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import com.toolympus.inca.ircstream.IrcStreamProperties;
+import org.springframework.context.ConfigurableApplicationContext;
 
 @EnableBinding(Source.class)
 @EnableConfigurationProperties(IrcStreamProperties.class)
