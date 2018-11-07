@@ -14,10 +14,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class IrcStreamProperties {
 
     /**
-     * The name
+     * The IRC server
      */
-    @Value("${spring.application.name:ircstream.source}")
-    private String name;
+    private String ircServer;
+
+    /**
+     * The IRC nickname of the bot
+     */
+    private String ircNickname;
 
     /**
      * The comma-separated list of channels to grab
@@ -25,12 +29,21 @@ public class IrcStreamProperties {
     private String channels;
 
     @NotBlank
-    public String getName() {
-        return name;
+    public String getIrcServer() {
+        return ircServer;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setIrcServer(String ircServer) {
+        this.ircServer = ircServer;
+    }
+
+    @NotBlank
+    public String getIrcNickname() {
+        return ircNickname;
+    }
+
+    public void setIrcNickname(String ircNickname) {
+        this.ircNickname = ircNickname;
     }
 
     @NotBlank

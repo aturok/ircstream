@@ -13,8 +13,6 @@ import org.springframework.integration.support.MessageBuilder;
 
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.EventListener;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 
 @Component
 public class IrcListener extends ListenerAdapter {
@@ -36,25 +34,13 @@ public class IrcListener extends ListenerAdapter {
         }
 
         private Source source;
-        private String _name;
-        private String _server;
-        private List<String> _channels;
 
-        @PostConstruct
-        public void setUp() throws Exception {
-                _name = "ircsource";
-                _server = "irc.rizon.net";
-                _channels = Arrays.asList("#aturoktest".split(","));
-
-                System.out.println("set up");
-        }
-        
         public void start() throws Exception {
                 System.out.println("starting up");
                 Configuration configuration = new Configuration.Builder()
-                                .setName(_name)
-                                .addServer(_server)
-                                .addAutoJoinChannels(_channels)
+                                .setName(properties.getIrcNickname())
+                                .addServer(properties.getIrcServer())
+                                .addAutoJoinChannels(Arrays.asList(properties.getChannels()))
                                 .addListener(this)
                                 .buildConfiguration();
 
