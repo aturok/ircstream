@@ -16,11 +16,9 @@ public class IrcStreamApplication {
 
         try {
             context.getBean(IrcListener.class).start();
-        }
-        catch(Exception exc) {
+        } catch (Exception exc) {
             exc.printStackTrace();
-        }
-        finally {
+        } finally {
             context.getBean(IrcListener.class).stop();
             context.close();
         }
