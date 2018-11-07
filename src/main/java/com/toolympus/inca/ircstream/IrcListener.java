@@ -29,7 +29,7 @@ public class IrcListener extends ListenerAdapter {
         @Override
         public void onMessage(MessageEvent event) {
                 Message msg = new Message();
-                msg.id = Long.toString(event.getId());
+                msg.id = Long.toString(event.getId()); // This is a client-only ID, IRC doesn't have real message IDs yet - see https://ircv3.net/specs/extensions/message-ids.html
                 msg.date = dateFormatter.format(new Date(event.getTimestamp()));
                 msg.source = sourceLabel;
                 msg.category = event.getChannel().getName();
