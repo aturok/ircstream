@@ -23,12 +23,11 @@ public class IrcListener extends ListenerAdapter {
     @Autowired
     private IrcStreamProperties properties;
 
+    @Autowired
     private Source source;
     private PircBotX bot;
     
-    @Autowired
-    public IrcListener(Source source) {
-        this.source = source;
+    public IrcListener() {
         dateFormatter.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
     
