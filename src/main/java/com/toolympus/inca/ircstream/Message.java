@@ -28,9 +28,14 @@ public class Message {
     public String channel_id;
 
     /**
-     * Message sender id
+     * Message sender login
      */
     public String author;
+
+    /**
+     * Message sender nickname
+     */
+    public String user_name;
 
     /**
      * Message text

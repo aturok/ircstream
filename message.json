@@ -24,7 +24,11 @@
         },
         "author": {
             "type": "string",
-            "description": "Message sender id"
+            "description": "Message sender login"
+        },
+        "user_name": {
+            "type": "string",
+            "description": "Message sender nickname"
         },
         "content": {
             "type": "string",
