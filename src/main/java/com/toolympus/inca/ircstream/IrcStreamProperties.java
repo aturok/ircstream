@@ -25,6 +25,11 @@ public class IrcStreamProperties {
     private String ircNickname;
 
     /**
+     * The IRC account password of the bot
+     */
+    private String ircPassword;
+
+    /**
      * The comma-separated list of channels to grab
      */
     private String channels;
@@ -45,6 +50,15 @@ public class IrcStreamProperties {
 
     public void setIrcNickname(String ircNickname) {
         this.ircNickname = ircNickname;
+    }
+
+    @NotBlank
+    public String getIrcPassword() {
+        return ircPassword;
+    }
+
+    public void setIrcPassword(String ircPassword) {
+        this.ircPassword = ircPassword;
     }
 
     @NotBlank

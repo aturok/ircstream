@@ -60,6 +60,7 @@ public class IrcListener extends ListenerAdapter {
         
         Configuration configuration = new Configuration.Builder()
         .setName(properties.getIrcNickname())
+        .setServerPassword(properties.getIrcPassword())
         .addServer(properties.getIrcServer())
         .addAutoJoinChannels(channels)
         .addListener(this)
