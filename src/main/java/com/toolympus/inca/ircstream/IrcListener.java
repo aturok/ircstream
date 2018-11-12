@@ -34,7 +34,7 @@ public class IrcListener extends ListenerAdapter {
     @Override
     public void onMessage(MessageEvent event) {
         Message msg = new Message();
-        msg.id = event.getChannel().getChannelId().toString() + ":" + event.getTimestamp();
+        msg.id = String.format("%s:%d", event.getChannel().getName(), event.getTimestamp());
         msg.date = dateFormatter.format(new Date(event.getTimestamp()));
         msg.source = sourceLabel;
         msg.category = event.getChannel().getName();
